@@ -18,7 +18,7 @@ public class ForceAlignment : MonoBehaviour
     {
         
     }
-    void SnapOnRelease(){
+    public void SnapOnRelease(){
         //test angle forward
         float minAngle = Mathf.Infinity;
         var minVectorFwd = Vector3.zero;
@@ -46,8 +46,4 @@ public class ForceAlignment : MonoBehaviour
         //snap minVector at the same moment for both
         transform.rotation = Quaternion.LookRotation(minVectorFwd, minVectorUp);
     }
-    public void LastSelectedExited(){
-        SnapOnRelease();
-    }
-
 }
