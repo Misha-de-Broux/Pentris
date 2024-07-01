@@ -47,7 +47,7 @@ public class ForceAlignment : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(minVectorFwd, minVectorUp);
     }
     public void SnapXZ(){
-        Vector3 correctedPos= new Vector3 (0,transform.position.y,0);
+        Vector3 correctedPos= new Vector3 (0,2f,0);
         if (transform.position.x % 0.2 != 0) {
             if(transform.position.x % 0.2 < 0.1){
                 correctedPos.x = transform.position.x - (transform.position.x % 0.2f);

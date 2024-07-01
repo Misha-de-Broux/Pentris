@@ -1,0 +1,34 @@
+{
+    "name": "Main",
+    "maps": [
+        {
+            "name": "main",
+            "id": "0c38cf60-bdee-479a-8c0f-ebea70681d87",
+            "actions": [
+                {
+                    "name": "cubeFall",
+                    "type": "Button",
+                    "id": "424ce919-f34c-4fec-b2b4-2e7f24881d9e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8f895019-c7b6-46b8-8f81-8f7fd1e70246",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "cubeFall",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
