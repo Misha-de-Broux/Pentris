@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 public class GridVisibility : MonoBehaviour {
+    [SerializeField] float decay = 0.3f;
     Material gridMaterial;
     Dictionary<GridVisibility, float> neighbours = new Dictionary<GridVisibility, float>();
     float visibility = 0;
@@ -49,7 +50,7 @@ public class GridVisibility : MonoBehaviour {
         if (oldVisibility != maxVisibility || neighbour == null) {
             SetMaterialVisibility(maxVisibility);
             foreach (GridVisibility next in neighbours.Keys) {
-                StartCoroutine(next.SetVisibility(this, maxVisibility - 0.2f));
+                StartCoroutine(next.SetVisibility(this, maxVisibility - decay));
             }
         }
     }

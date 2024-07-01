@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+    const string CUBE_TAG = "Cube";
     [SerializeField] float speed = 1;
     public float currentSpeed = 0;
     public void Fall() {
@@ -15,14 +16,13 @@ public class Piece : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log(other.gameObject.name);
-        if(other.CompareTag(tag)) {
+        if(other.CompareTag(CUBE_TAG)) {
             if (other.transform.parent != transform) {
                 List<Transform> cubes = new List<Transform>(GetComponentsInChildren<Transform>());
                 foreach (Transform cube in cubes) {
                     cube.parent = transform.parent;
                     Vector3 position = cube.position;
-                    position.y -= position.y % 0.2f + 0.3f;
+                    position.y -= position.y % 0.2f - 0.1f;
                     cube.position = position;
                 }
                 Destroy(gameObject);
