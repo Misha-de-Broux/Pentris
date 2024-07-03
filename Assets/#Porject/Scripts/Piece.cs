@@ -7,12 +7,17 @@ public class Piece : MonoBehaviour
     const string CUBE_TAG = "Cube";
     [SerializeField] float speed = 1;
     public float currentSpeed = 0;
+    private PlayMatrix PlayMatrix;
+
+    private void Start() {
+        PlayMatrix = GameObject.FindAnyObjectByType<PlayMatrix>();
+    }
     public void Fall() {
         currentSpeed = speed;
     }
 
     public void Update() {
-        transform.Translate(Vector3.down * currentSpeed * Time.deltaTime);
+        transform.Translate(Vector3.down * currentSpeed * Time.deltaTime, Space.World);
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -20,10 +25,7 @@ public class Piece : MonoBehaviour
             if (other.transform.parent != transform) {
                 List<Cube> cubes = new List<Cube>(GetComponentsInChildren<Cube>());
                 foreach (Cube cube in cubes) {
-                    cube.transform.parent = transform.parent;
-                    Vector3 position = cube.transform.position;
-                    position.y -= position.y % 0.2f - 0.1f;
-                    cube.transform.position = position;
+                    cube.SetInPlayMatrix(PlayMatrix.transform);
                 }
                 PlayMatrix.AddCubes(cubes);
                 Destroy(gameObject);
