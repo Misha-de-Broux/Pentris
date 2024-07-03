@@ -7,6 +7,8 @@ public class PlayerControl : MonoBehaviour
 {
     private PlayerInput playerInput;
     private InputAction cubeFall;
+    [SerializeField] RandomPieceGenerator pieceGenerator;
+    private Piece currentPiece;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,7 +23,11 @@ public class PlayerControl : MonoBehaviour
         
     }
     public void MakeFall(InputAction.CallbackContext ctx){
-        Debug.Log("You triggered the fall");
+        if (currentPiece != null) {
+            currentPiece.enabled = true;
+            currentPiece.Fall();
+        }
+        currentPiece = pieceGenerator.GenerateNewPiece();
     }
     void OnEnable(){
         cubeFall.Enable();

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7867552868576391371}
   - component: {fileID: 7508182738957211691}
+  - component: {fileID: 5600630364514530390}
   m_Layer: 0
   m_Name: Playzone v2
   m_TagString: Untagged
@@ -58,6 +59,28 @@ MonoBehaviour:
   sizeZ: 7
   timeToFall: 1
   timeToKill: 0.5
+  easyMultiplier: 3
+  hardMultiplier: 5
+--- !u!114 &5600630364514530390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5850694855411011618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e0b558bab770c45a954b46d3eb2a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolOfPiece:
+  - {fileID: 6954118839449669147, guid: 4097a74dbce9dcc478c4b1496e45831e, type: 3}
+  - {fileID: 362634357440622182, guid: bb12cc911d13ff1479f39c5f9f36b567, type: 3}
+  - {fileID: 4189554864345766220, guid: 9413772f181412d4c9a29e88a45ade98, type: 3}
+  - {fileID: 8480938204874572294, guid: 9772515b5a9e486429a7a4acd7f7d7ac, type: 3}
+  - {fileID: 5244692908366488278, guid: 9007b80f062e6894eae40a339f612b56, type: 3}
+  - {fileID: 7261907834542329536, guid: eb50c4238781d8343b5bf3610f40c687, type: 3}
+  - {fileID: 6722354568250158541, guid: 0d3c25ccd367eaf4da7a0c876183e0fb, type: 3}
 --- !u!1001 &619281633531878137
 PrefabInstance:
   m_ObjectHideFlags: 0

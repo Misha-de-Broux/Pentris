@@ -7,8 +7,18 @@ public class ForceAlignment : MonoBehaviour
     //order of angles: forward, back, up, down, left, right 
     Vector3[] allVectors = new Vector3[6]{Vector3.forward, Vector3.back, Vector3.up, Vector3.down, Vector3.left, Vector3.right};
     // Start is called before the first frame update
+
+    Bounds playzone;
     void Start()
     {
+        PlayMatrix playZoneMatrix = GameObject.FindAnyObjectByType<PlayMatrix>();
+        Collider[] playZoneColliders = playZoneMatrix.GetComponentsInChildren<Collider>();
+        playzone = new Bounds(playZoneMatrix.transform.position, Vector3.zero);
+        foreach (Collider nextCollider in playZoneColliders) {
+            Debug.Log(nextCollider.bounds.size);
+            playzone.Encapsulate(nextCollider.bounds);
+        }
+
         //for testing purpose
         //InvokeRepeating("SnapOnRelease", 2f, 3f);
     }
@@ -47,21 +57,46 @@ public class ForceAlignment : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(minVectorFwd, minVectorUp);
     }
     public void SnapXZ(){
-        Vector3 correctedPos= new Vector3 (0,2f,0);
-        if (transform.position.x % 0.2 != 0) {
-            if(transform.position.x % 0.2 < 0.1){
-                correctedPos.x = transform.position.x - (transform.position.x % 0.2f);
-            }
-            else{
-                correctedPos.x = transform.position.x - (transform.position.x % 0.2f) + 0.2f;
+        Vector3 correctedPos = transform.position;
+        
+        
+
+        Collider[] myColliders = GetComponentsInChildren<Collider>();
+        Bounds myBounds = new Bounds(transform.position, Vector3.zero);
+        foreach (Collider nextCollider in myColliders) {
+            myBounds.Encapsulate(nextCollider.bounds);
+        }
+        correctedPos.y -= (myBounds.min.y - playzone.max.y);
+        correctedPos.y -= correctedPos.y%0.1f;
+
+        
+
+        Debug.Log($"playzone max : {playzone.max}, min : {playzone.min}\nbounds max : {myBounds.max}, min : {myBounds.min}");
+        if(myBounds.min.x < playzone.min.x) {
+            correctedPos.x -= (myBounds.min.x - playzone.min.x);
+        }
+        if (myBounds.max.x > playzone.max.x) {
+            correctedPos.x -= (myBounds.max.x - playzone.max.x);
+        }
+        if (myBounds.min.z < playzone.min.z) {
+            correctedPos.z -= (myBounds.min.z - playzone.min.z);
+        }
+        if (myBounds.max.z > playzone.max.z) {
+            correctedPos.z -= (myBounds.max.z - playzone.max.z);
+        }
+
+        if (correctedPos.x % 0.2 != 0) {
+            if (correctedPos.x % 0.2 < 0.1) {
+                correctedPos.x -= correctedPos.x % 0.2f;
+            } else {
+                correctedPos.x -= correctedPos.x % 0.2f - 0.2f;
             }
         }
-        if (transform.position.z % 0.2 != 0) {
-            if(transform.position.z % 0.2 < 0.1){
-                correctedPos.z = transform.position.z - (transform.position.z % 0.2f);
-            }
-            else{
-                correctedPos.z = transform.position.z - (transform.position.z % 0.2f) + 0.2f;
+        if (correctedPos.z % 0.2 != 0) {
+            if (correctedPos.z % 0.2 < 0.1) {
+                correctedPos.z -= correctedPos.z % 0.2f;
+            } else {
+                correctedPos.z -= correctedPos.z % 0.2f - 0.2f;
             }
         }
         transform.position = correctedPos;

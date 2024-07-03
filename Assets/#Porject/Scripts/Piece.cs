@@ -6,13 +6,14 @@ public class Piece : MonoBehaviour
 {
     const string CUBE_TAG = "Cube";
     [SerializeField] float speed = 1;
-    public float currentSpeed = 0;
+    float currentSpeed = 0;
     private PlayMatrix PlayMatrix;
 
-    private void Start() {
-        PlayMatrix = GameObject.FindAnyObjectByType<PlayMatrix>();
-    }
     public void Fall() {
+        PlayMatrix = GameObject.FindAnyObjectByType<PlayMatrix>();
+        foreach(Collider c in gameObject.GetComponentsInChildren<Collider>()) {
+            c.isTrigger = true;
+        }
         currentSpeed = speed;
     }
 

@@ -23,15 +23,15 @@ public class RandomPieceGenerator : MonoBehaviour
     {
         
     }
-    public void GenerateNewPiece(){
+    public Piece GenerateNewPiece(){
         Vector3 position = new Vector3(2,1,0);
         Quaternion rotation = Quaternion.identity;
         if(pool.Count != 0){
-            Instantiate(pool.Pop(), position, rotation);
+            return Instantiate(pool.Pop(), position, rotation).GetComponent<Piece>();
         }
         else{
             ReplenishPool();
-            GenerateNewPiece();
+            return GenerateNewPiece();
         }
     }
     void ReplenishPool(){
