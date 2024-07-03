@@ -18,13 +18,14 @@ public class Piece : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag(CUBE_TAG)) {
             if (other.transform.parent != transform) {
-                List<Transform> cubes = new List<Transform>(GetComponentsInChildren<Transform>());
-                foreach (Transform cube in cubes) {
-                    cube.parent = transform.parent;
-                    Vector3 position = cube.position;
+                List<Cube> cubes = new List<Cube>(GetComponentsInChildren<Cube>());
+                foreach (Cube cube in cubes) {
+                    cube.transform.parent = transform.parent;
+                    Vector3 position = cube.transform.position;
                     position.y -= position.y % 0.2f - 0.1f;
-                    cube.position = position;
+                    cube.transform.position = position;
                 }
+                PlayMatrix.AddCubes(cubes);
                 Destroy(gameObject);
             }
         }

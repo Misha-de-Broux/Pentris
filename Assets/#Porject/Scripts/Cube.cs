@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    [SerializeField] float rowHeight = .2f;
     
     public void Fall(int rows, float timeToFall) {
         StartCoroutine(FallCoroutine(rows, timeToFall));
@@ -13,10 +12,10 @@ public class Cube : MonoBehaviour
     IEnumerator FallCoroutine(int rows, float timeToFall) {
         Vector3 current = transform.position;
         for(float _ = 0; _ < timeToFall; _+= Time.deltaTime) {
-            transform.Translate(Vector3.down *rows * rowHeight *Time.deltaTime / timeToFall);
+            transform.Translate(Vector3.down *rows * transform.localScale.y *Time.deltaTime / timeToFall);
             yield return null;
         }
-        current.y -= rows * rowHeight;
+        current.y -= rows * transform.localScale.y;
         transform.position = current;
     }
 }

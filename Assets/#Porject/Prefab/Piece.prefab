@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4810929761852202479}
   - component: {fileID: 6313740079985609829}
   - component: {fileID: 8319996107990080133}
+  - component: {fileID: 8819238711664838366}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Cube
@@ -105,6 +106,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.98, y: 0.98, z: 0.98}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8819238711664838366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2679603838666104769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2fd05857452be4b807231fead8408f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2708515872894887781
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +130,7 @@ GameObject:
   - component: {fileID: 6289093686892236769}
   - component: {fileID: 236097551877453920}
   - component: {fileID: 1882341630582414616}
+  - component: {fileID: 7270561014037040547}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Cube
@@ -210,6 +224,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.98, y: 0.98, z: 0.98}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7270561014037040547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708515872894887781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2fd05857452be4b807231fead8408f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4124417977477377652
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +505,7 @@ GameObject:
   - component: {fileID: 6277182731488733684}
   - component: {fileID: 354505347033955743}
   - component: {fileID: 2237822400877959169}
+  - component: {fileID: 8825651095278378904}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Cube
@@ -572,6 +599,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.98, y: 0.98, z: 0.98}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8825651095278378904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6430515651007084343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2fd05857452be4b807231fead8408f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6481617680025311766
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,6 +623,7 @@ GameObject:
   - component: {fileID: 5723274900736329635}
   - component: {fileID: 3486819804601183559}
   - component: {fileID: 5730396134437241824}
+  - component: {fileID: 4941539091256389413}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Cube
@@ -677,6 +717,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.98, y: 0.98, z: 0.98}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4941539091256389413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6481617680025311766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2fd05857452be4b807231fead8408f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8271140661577667408
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +741,7 @@ GameObject:
   - component: {fileID: 5830284106410075935}
   - component: {fileID: 5004219914309935491}
   - component: {fileID: 4086493373691619652}
+  - component: {fileID: 1692786267888991549}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Cube
@@ -782,3 +835,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.98, y: 0.98, z: 0.98}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1692786267888991549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271140661577667408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2fd05857452be4b807231fead8408f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
