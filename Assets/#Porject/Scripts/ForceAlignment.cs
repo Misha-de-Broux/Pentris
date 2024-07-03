@@ -46,4 +46,24 @@ public class ForceAlignment : MonoBehaviour
         //snap minVector at the same moment for both
         transform.rotation = Quaternion.LookRotation(minVectorFwd, minVectorUp);
     }
+    public void SnapXZ(){
+        Vector3 correctedPos= new Vector3 (0,2f,0);
+        if (transform.position.x % 0.2 != 0) {
+            if(transform.position.x % 0.2 < 0.1){
+                correctedPos.x = transform.position.x - (transform.position.x % 0.2f);
+            }
+            else{
+                correctedPos.x = transform.position.x - (transform.position.x % 0.2f) + 0.2f;
+            }
+        }
+        if (transform.position.z % 0.2 != 0) {
+            if(transform.position.z % 0.2 < 0.1){
+                correctedPos.z = transform.position.z - (transform.position.z % 0.2f);
+            }
+            else{
+                correctedPos.z = transform.position.z - (transform.position.z % 0.2f) + 0.2f;
+            }
+        }
+        transform.position = correctedPos;
+    }
 }
