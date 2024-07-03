@@ -12,6 +12,7 @@ public class GridVisibility : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         gridMaterial = GetComponent<Renderer>().material;
+        SetMaterialVisibility(0);
         LayerMask mask = LayerMask.GetMask("Grid");
         for (int i = 0; i < 6; i++) {
             Vector3 direction = new Vector3(i == 0 ? 1 : i == 1 ? -1 : 0, i == 2 ? 1 : i == 3 ? -1 : 0, i == 4 ? 1 : i == 5 ? -1 : 0);
