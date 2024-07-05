@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] RandomPieceGenerator pieceGenerator;
     private Piece currentPiece;
     Bounds playzone;
+    [SerializeField] RightWristUI wrist;
     // Start is called before the first frame update
     void Start(){
         PlayMatrix playZoneMatrix = GameObject.FindAnyObjectByType<PlayMatrix>();
@@ -54,6 +55,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
         currentPiece = pieceGenerator.GenerateNewPiece();
+        wrist.OnPieceFall();
     }
     void OnEnable(){
         cubeFall.Enable();
