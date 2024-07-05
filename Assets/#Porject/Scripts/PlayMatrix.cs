@@ -31,20 +31,20 @@ public class PlayMatrix : MonoBehaviour {
     }
 
     private void RestartGame(bool gameOver) {
-        if(!gameOver) {
-            foreach(Cube cube in GameObject.FindObjectsOfType(typeof(Cube))) {
+        if (!gameOver) {
+            foreach (Cube cube in GameObject.FindObjectsOfType(typeof(Cube))) {
                 Destroy(cube.gameObject);
             }
-            foreach(Piece piece in GameObject.FindObjectsOfType(typeof(Piece))) {
+            foreach (Piece piece in GameObject.FindObjectsOfType(typeof(Piece))) {
                 Destroy(piece.gameObject);
             }
         }
-        for(int y = 0; y < sizeY; y++) {
-            for(int x = 0; x < sizeX; x++) {
+        for (int y = 0; y < sizeY; y++) {
+            for (int x = 0; x < sizeX; x++) {
                 rows[x, y] = 0;
             }
-            for(int z = 0; z < sizeZ; z++) {
-                columns[z,y] = 0;
+            for (int z = 0; z < sizeZ; z++) {
+                columns[z, y] = 0;
             }
         }
     }
@@ -71,6 +71,7 @@ public class PlayMatrix : MonoBehaviour {
             } else {
                 EasyUpdate(newPositions, out falls, out cubesToRemove, out score);
             }
+            Debug.Log(score);
             if (score > 0) {
                 Data.Score += score;
             }
@@ -92,7 +93,7 @@ public class PlayMatrix : MonoBehaviour {
             while (runningRoutines > 0) {
                 yield return null;
             }
-            DebugMatrix();
+            //DebugMatrix();
             if (falls.Count > 0) {
                 AddCubes(falls.Keys);
             }
@@ -112,6 +113,7 @@ public class PlayMatrix : MonoBehaviour {
         score = 1;
         foreach (Vector3Int position in newPositions) {
             if (rows[position.x, position.y] == sizeX) {
+                rows[position.x, position.y] = 0;
                 score *= easyMultiplier;
                 for (int z = 0; z < sizeZ; z++) {
                     cubesToRemove.Add(matrix[position.x, position.y, z]);
@@ -128,6 +130,7 @@ public class PlayMatrix : MonoBehaviour {
                 }
             }
             if (columns[position.z, position.y] == sizeZ) {
+                columns[position.z, position.y] = 0;
                 score *= easyMultiplier;
                 for (int x = 0; x < sizeX; x++) {
                     cubesToRemove.Add(matrix[x, position.y, position.z]);
@@ -153,6 +156,7 @@ public class PlayMatrix : MonoBehaviour {
         score = 1;
         foreach (Vector3Int position in newPositions) {
             if (levels[position.y] == sizeX * sizeZ) {
+                levels[position.y] = 0;
                 score *= hardMultiplier;
                 for (int x = 0; x < sizeX; x++) {
                     for (int z = 0; z < sizeZ; z++) {
@@ -221,9 +225,12 @@ public class PlayMatrix : MonoBehaviour {
         Vector3Int position = GetPosition(cube);
         if (matrix[position.x, position.y, position.z] != null) {
             matrix[position.x, position.y, position.z] = null;
-            rows[position.x, position.y]--;
-            columns[position.z, position.y]--;
-            levels[position.y]--;
+            if (rows[position.x, position.y] > 0)
+                rows[position.x, position.y]--;
+            if (columns[position.z, position.y] > 0)
+                columns[position.z, position.y]--;
+            if (levels[position.y] > 0)
+                levels[position.y]--;
         }
     }
 }

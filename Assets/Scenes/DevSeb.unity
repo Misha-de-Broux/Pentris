@@ -838,6 +838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pieceGenerator: {fileID: 1162040391}
+  timeToAutoDrop: 10
 --- !u!114 &1509820213
 MonoBehaviour:
   m_ObjectHideFlags: 0
