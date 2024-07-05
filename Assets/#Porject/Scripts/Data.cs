@@ -33,4 +33,6 @@ public class Data {
             gameOverUpdate?.Invoke(GameOver);
         }
     }
+
+    public static float FallSpeed { get; set; } = 10;
 }

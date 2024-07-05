@@ -9,7 +9,6 @@ public class PlayerControl : MonoBehaviour {
     private PlayerInput playerInput;
     private InputAction cubeFall;
     [SerializeField] RandomPieceGenerator pieceGenerator;
-    [SerializeField] float timeToAutoDrop = 10;
     private Piece currentPiece;
     private Coroutine autoFall;
     private bool waitingForPieceToFall = false;
@@ -67,7 +66,7 @@ public class PlayerControl : MonoBehaviour {
     }
 
     IEnumerator AutoFall() {
-        yield return new WaitForSeconds(timeToAutoDrop);
+        yield return new WaitForSeconds(Data.FallSpeed);
         MakeFall();
     }
 

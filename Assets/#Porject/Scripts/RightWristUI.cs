@@ -24,6 +24,8 @@ public class RightWristUI : MonoBehaviour
             Destroy(piece);
         }
         piece = Instantiate(generator.pool.Peek(), transform.position, transform.rotation, transform);
+        foreach(Collider collider in piece.GetComponentsInChildren<Collider>())
+            Destroy(collider);
         piece.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
     }
 }
