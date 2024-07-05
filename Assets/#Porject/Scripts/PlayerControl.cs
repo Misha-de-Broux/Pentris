@@ -10,7 +10,9 @@ public class PlayerControl : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction cubeFall;
     [SerializeField] RandomPieceGenerator pieceGenerator;
+    [SerializeField] float timeToAutoDrop;
     private Piece currentPiece;
+    private Coroutine autoFall;
     Bounds playzone;
     // Start is called before the first frame update
     void Start(){
@@ -33,11 +35,24 @@ public class PlayerControl : MonoBehaviour
     {
         
     }
-    public void MakeFall(InputAction.CallbackContext ctx){
+    public void MakeFall(InputAction.CallbackContext ctx) {
+        MakeFall();
+    }
+
+    private void MakeFall() {
         if (currentPiece != null) {
+            currentPiece.GetComponent<XRGrabInteractable>().enabled = false;
+            ForceAlignment pieceAlignment = currentPiece.GetComponent<ForceAlignment>();
+            pieceAlignment.SnapOnRelease();
+            pieceAlignment.SnapXZ();
             currentPiece.enabled = true;
+            currentPiece.Fall();
+            StopCoroutine(autoFall);
+
+
+            /*
             //test if piece held, blocking spawn of other piece if held above grid
-            if (currentPiece.GetComponent<XRGrabInteractable>().interactorsSelecting.Count > 0){
+            if (currentPiece.GetComponent<XRGrabInteractable>().interactorsSelecting.Count > 0) {
                 return;
             }
             Collider[] myColliders = currentPiece.GetComponentsInChildren<Collider>();
@@ -46,15 +61,22 @@ public class PlayerControl : MonoBehaviour
                 pieceBounds.Encapsulate(nextCollider.bounds);
             }
             //test if piece is within bounds
-            if (pieceBounds.min.x < playzone.min.x || pieceBounds.max.x > playzone.max.x || pieceBounds.min.z < playzone.min.z || pieceBounds.max.z > playzone.max.z){
+            if (pieceBounds.min.x < playzone.min.x || pieceBounds.max.x > playzone.max.x || pieceBounds.min.z < playzone.min.z || pieceBounds.max.z > playzone.max.z) {
                 return;
-            }
-            else{
+            } else {
                 currentPiece.Fall();
             }
+            */
         }
         currentPiece = pieceGenerator.GenerateNewPiece();
+        autoFall = StartCoroutine(AutoFall());
     }
+
+    IEnumerator AutoFall() {
+        yield return new WaitForSeconds(timeToAutoDrop);
+        MakeFall();
+    }
+
     void OnEnable(){
         cubeFall.Enable();
     }
