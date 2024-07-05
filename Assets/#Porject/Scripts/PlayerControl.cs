@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour {
     private Coroutine autoFall;
     private bool waitingForPieceToFall = false;
     Bounds playzone;
+    [SerializeField] RightWristUI wrist;
     // Start is called before the first frame update
     void Start() {
         PlayMatrix playZoneMatrix = GameObject.FindAnyObjectByType<PlayMatrix>();
