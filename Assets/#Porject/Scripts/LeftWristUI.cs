@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class WristUI : MonoBehaviour
+public class LeftWristUI : MonoBehaviour
 {
     [SerializeField] TMP_Text score;
+    
     // Start is called before the first frame update
     void Start()
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 public class RandomPieceGenerator : MonoBehaviour
 {
     [SerializeField]private GameObject[] poolOfPiece;
-    private Stack<GameObject> pool = new();
+    public Stack<GameObject> pool = new();
     private List<int> indexes = new List<int>();
     // Start is called before the first frame update
     void Start()
