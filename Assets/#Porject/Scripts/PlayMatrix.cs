@@ -174,9 +174,6 @@ public class PlayMatrix : MonoBehaviour {
             }
 
         }
-        foreach (Vector3Int position in newPositions) {
-
-        }
         score /= hardMultiplier;
     }
 
