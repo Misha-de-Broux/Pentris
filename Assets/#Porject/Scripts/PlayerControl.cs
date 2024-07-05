@@ -50,6 +50,7 @@ public class PlayerControl : MonoBehaviour {
             currentPiece.Fall();
             StopCoroutine(autoFall);
             waitingForPieceToFall = true;
+            wrist.OnPieceFall();
         }
 
     }
