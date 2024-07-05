@@ -13,7 +13,6 @@ public class ForceAlignment : MonoBehaviour {
         Collider[] playZoneColliders = playZoneMatrix.GetComponentsInChildren<Collider>();
         playzone = new Bounds(playZoneMatrix.transform.position, Vector3.zero);
         foreach (Collider nextCollider in playZoneColliders) {
-            //Debug.Log(nextCollider.bounds.size);
             playzone.Encapsulate(nextCollider.bounds);
         }
 
@@ -56,8 +55,6 @@ public class ForceAlignment : MonoBehaviour {
     public void SnapXZ() {
         Vector3 correctedPos = transform.position;
 
-
-
         Collider[] myColliders = GetComponentsInChildren<Collider>();
         Bounds myBounds = new Bounds(transform.position, Vector3.zero);
         foreach (Collider nextCollider in myColliders) {
@@ -66,10 +63,7 @@ public class ForceAlignment : MonoBehaviour {
         correctedPos.y -= (myBounds.min.y - playzone.max.y);
         correctedPos.y -= correctedPos.y % 0.1f;
 
-
-
-        Debug.Log($"playzone max : {playzone.max}, min : {playzone.min}\nbounds max : {myBounds.max}, min : {myBounds.min}");
-        if (myBounds.min.x < playzone.min.x) {
+        if(myBounds.min.x < playzone.min.x) {
             correctedPos.x -= (myBounds.min.x - playzone.min.x);
         }
         if (myBounds.max.x > playzone.max.x) {
@@ -81,8 +75,6 @@ public class ForceAlignment : MonoBehaviour {
         if (myBounds.max.z > playzone.max.z) {
             correctedPos.z -= (myBounds.max.z - playzone.max.z);
         }
-        Debug.Log($"presnap : {correctedPos}");
-        Debug.Log($"presnap modulo = ({correctedPos.x % 0.2f}, {correctedPos.y % 0.2f}, {correctedPos.z % 0.2f})");
         float modulo = correctedPos.x % 0.2f;
         modulo += modulo < 0 ? 0.2f : 0;
         correctedPos.x -= modulo;
@@ -101,7 +93,6 @@ public class ForceAlignment : MonoBehaviour {
         if (modulo > 0.1f) {
             correctedPos.y += 0.2f;
         }
-        Debug.Log($"postsnap : {correctedPos}");
         transform.position = correctedPos;
     }
 }
