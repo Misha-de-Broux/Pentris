@@ -7,6 +7,7 @@ public class Piece : MonoBehaviour
 {
     const string CUBE_TAG = "Cube";
     [SerializeField] float speed = 1;
+    public Action FallEnded;
     float currentSpeed = 0;
     private PlayMatrix PlayMatrix;
 
@@ -45,6 +46,7 @@ public class Piece : MonoBehaviour
                         cube.SetInPlayMatrix(PlayMatrix.transform);
                     }
                     PlayMatrix.AddCubes(cubes);
+                    FallEnded?.Invoke();
                     Destroy(gameObject);
                 }
             }

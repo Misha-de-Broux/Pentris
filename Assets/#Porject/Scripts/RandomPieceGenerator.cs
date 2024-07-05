@@ -27,7 +27,11 @@ public class RandomPieceGenerator : MonoBehaviour
         Vector3 position = new Vector3(2,1,0);
         Quaternion rotation = Quaternion.identity;
         if(pool.Count != 0){
-            return Instantiate(pool.Pop(), position, rotation).GetComponent<Piece>();
+            Piece piece = Instantiate(pool.Pop(), position, rotation).GetComponent<Piece>();
+            if(pool.Count == 0){
+                ReplenishPool();
+            }
+            return piece;
         }
         else{
             ReplenishPool();

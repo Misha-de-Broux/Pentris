@@ -18,5 +18,6 @@ public class NewGameButton : MonoBehaviour
     public void StartNewGame(bool isHard) {
         Data.IsHard = isHard;
         Data.GameOver = false;
+        Data.Score = 0;
     }
 }
