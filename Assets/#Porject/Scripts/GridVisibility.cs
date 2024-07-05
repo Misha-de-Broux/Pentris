@@ -25,19 +25,35 @@ public class GridVisibility : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Cube")) {
-            cubes++;
-            visibility = 1;
-            StartCoroutine(SetVisibility(null, 1));
+            Cube cube = other.GetComponent<Cube>();
+            if (cube != null) {
+                cube.onDestroy += RemoveCube;
+            }
+            AddCube();
         }
+    }
+
+    private void AddCube() {
+        cubes++;
+        visibility = 1;
+        StartCoroutine(SetVisibility(null, 1));
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Cube")) {
-            cubes--;
-            if (cubes == 0) {
-                visibility = 0;
-                StartCoroutine(SetVisibility(null, visibility));
+            Cube cube = other.GetComponent<Cube>();
+            if (cube != null) {
+                cube.onDestroy -= RemoveCube;
             }
+            RemoveCube();
+        }
+    }
+
+    private void RemoveCube() {
+        cubes--;
+        if (cubes == 0) {
+            visibility = 0;
+            StartCoroutine(SetVisibility(null, visibility));
         }
     }
 

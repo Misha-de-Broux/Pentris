@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour {
 
+    public Action onDestroy;
+
+    private void OnDestroy() {
+        onDestroy?.Invoke();
+    }
+
     public IEnumerator FallCoroutine(int rows, float timeToFall) {
-        Debug.Log("Fall");
         Vector3 current = transform.position;
         for (float _ = 0; _ < timeToFall; _ += Time.deltaTime) {
             transform.Translate(Vector3.down * rows * transform.localScale.y * Time.deltaTime / timeToFall, Space.World);
@@ -18,7 +23,6 @@ public class Cube : MonoBehaviour {
 
 
     public IEnumerator KillCoroutine(float timeToDie) {
-        Debug.Log("kill");
         Renderer[] renderers = GetComponents<Renderer>();
         foreach (Renderer renderer in renderers) {
             renderer.enabled = false;
@@ -42,7 +46,6 @@ public class Cube : MonoBehaviour {
 
     private IEnumerator DestroyCoroutine(float countdown) { 
         yield return new WaitForSeconds(countdown);
-        Debug.Log("Destroy");
         Destroy(gameObject);
     }
 

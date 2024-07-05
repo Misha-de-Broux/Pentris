@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +10,22 @@ public class Piece : MonoBehaviour
     float currentSpeed = 0;
     private PlayMatrix PlayMatrix;
 
-    public void Fall() {
+    private void Awake () {
         PlayMatrix = GameObject.FindAnyObjectByType<PlayMatrix>();
+        Data.gameOverUpdate += Unload;
+        Unload(Data.GameOver);
+    }
+
+
+
+    private void Unload(bool gameOver) {
+        if (gameOver) {
+            Data.gameOverUpdate -= Unload;
+            Destroy(gameObject);
+        }
+    }
+
+    public void Fall() {
         foreach(Collider c in gameObject.GetComponentsInChildren<Collider>()) {
             c.isTrigger = true;
         }
@@ -22,14 +37,16 @@ public class Piece : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag(CUBE_TAG)) {
-            if (other.transform.parent != transform) {
-                List<Cube> cubes = new List<Cube>(GetComponentsInChildren<Cube>());
-                foreach (Cube cube in cubes) {
-                    cube.SetInPlayMatrix(PlayMatrix.transform);
+        if (enabled) {
+            if (other.CompareTag(CUBE_TAG)) {
+                if (other.transform.parent != transform) {
+                    List<Cube> cubes = new List<Cube>(GetComponentsInChildren<Cube>());
+                    foreach (Cube cube in cubes) {
+                        cube.SetInPlayMatrix(PlayMatrix.transform);
+                    }
+                    PlayMatrix.AddCubes(cubes);
+                    Destroy(gameObject);
                 }
-                PlayMatrix.AddCubes(cubes);
-                Destroy(gameObject);
             }
         }
     }

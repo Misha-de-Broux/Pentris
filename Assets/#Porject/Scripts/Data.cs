@@ -23,4 +23,14 @@ public class Data {
             difficultyUpdate?.Invoke(IsHard);
         }
     }
+
+    public static Action<bool> gameOverUpdate;
+    private static bool _gameOver = true;
+    public static bool GameOver {
+        get { return _gameOver; }
+        set {
+            _gameOver = value;
+            gameOverUpdate?.Invoke(GameOver);
+        }
+    }
 }

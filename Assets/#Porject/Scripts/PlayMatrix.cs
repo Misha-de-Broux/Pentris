@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,26 @@ public class PlayMatrix : MonoBehaviour {
         columns = new int[sizeZ, sizeY];
         levels = new int[sizeY];
         offset = new Vector3(sizeX / 2, -0.5f, sizeZ / 2);
+        Data.gameOverUpdate += RestartGame;
+    }
+
+    private void RestartGame(bool gameOver) {
+        if(!gameOver) {
+            foreach(Cube cube in GameObject.FindObjectsOfType(typeof(Cube))) {
+                Destroy(cube.gameObject);
+            }
+            foreach(Piece piece in GameObject.FindObjectsOfType(typeof(Piece))) {
+                Destroy(piece.gameObject);
+            }
+        }
+        for(int y = 0; y < sizeY; y++) {
+            for(int x = 0; x < sizeX; x++) {
+                rows[x, y] = 0;
+            }
+            for(int z = 0; z < sizeZ; z++) {
+                columns[z,y] = 0;
+            }
+        }
     }
 
     public void AddCubes(IEnumerable<Cube> cubes) {
@@ -34,48 +55,53 @@ public class PlayMatrix : MonoBehaviour {
 
     private IEnumerator AddCubesCoroutine(IEnumerable<Cube> cubes) {
         List<Vector3Int> newPositions = new List<Vector3Int>();
-        foreach (Cube cube in cubes) {
-            newPositions.Add(AddCube(cube));
-        }
-
-        Dictionary<Cube, List<int>> falls;
-        List<Cube> cubesToRemove;
-        int score;
-        if (Data.IsHard) {
-            HardUpdate(newPositions, out falls, out cubesToRemove, out score);
-        } else {
-            EasyUpdate(newPositions, out falls, out cubesToRemove, out score);
-        }
-        if (score > 0) {
-            Data.Score += score;
-        }
-        int runningRoutines = 0;
-        foreach (Cube cube in cubesToRemove.Distinct()) {
-            RemoveCube(cube);
-            StartCoroutine(StartWaitCoroutine(cube.KillCoroutine(timeToKill)));
-        }
-        while (runningRoutines > 0) {
-            yield return null;
-        }
-        foreach (Cube cube in falls.Keys) {
-            if (cube != null) {
-                RemoveCube(cube);
-                StartCoroutine(StartWaitCoroutine(cube.FallCoroutine(falls[cube].Distinct().Count(), timeToFall)));
+        try {
+            foreach (Cube cube in cubes) {
+                newPositions.Add(AddCube(cube));
             }
+        } catch (IndexOutOfRangeException) {
+            Data.GameOver = true;
         }
-        while (runningRoutines > 0) {
-            yield return null;
-        }
-        if (falls.Count > 0) {
-            AddCubes(falls.Keys);
-        }
-        //DebugMatrix();
+        if (!Data.GameOver) {
+            Dictionary<Cube, List<int>> falls;
+            List<Cube> cubesToRemove;
+            int score;
+            if (Data.IsHard) {
+                HardUpdate(newPositions, out falls, out cubesToRemove, out score);
+            } else {
+                EasyUpdate(newPositions, out falls, out cubesToRemove, out score);
+            }
+            if (score > 0) {
+                Data.Score += score;
+            }
+            int runningRoutines = 0;
+            foreach (Cube cube in cubesToRemove.Distinct()) {
+                RemoveCube(cube);
+                StartCoroutine(StartWaitCoroutine(cube.KillCoroutine(timeToKill)));
+            }
+            while (runningRoutines > 0) {
+                yield return null;
+            }
+            foreach (Cube cube in falls.Keys) {
+                if (cube != null) {
+                    RemoveCube(cube);
+                    StartCoroutine(StartWaitCoroutine(cube.FallCoroutine(falls[cube].Distinct().Count(), timeToFall)));
+                }
+            }
+            while (runningRoutines > 0) {
+                yield return null;
+            }
+            DebugMatrix();
+            if (falls.Count > 0) {
+                AddCubes(falls.Keys);
+            }
 
-        IEnumerator StartWaitCoroutine(IEnumerator Coroutine) {
-            Debug.Log("startwait");
-            runningRoutines++;
-            yield return Coroutine;
-            runningRoutines--;
+
+            IEnumerator StartWaitCoroutine(IEnumerator Coroutine) {
+                runningRoutines++;
+                yield return Coroutine;
+                runningRoutines--;
+            }
         }
     }
 
@@ -108,7 +134,7 @@ public class PlayMatrix : MonoBehaviour {
                 for (int y = position.y + 1; y < sizeY; y++) {
                     for (int x = 0; x < sizeX; x++) {
                         if (matrix[x, y, position.z] != null) {
-                            if (falls.ContainsKey(matrix[x, y, position.z])) {
+                            if (!falls.ContainsKey(matrix[x, y, position.z])) {
                                 falls[matrix[x, y, position.z]] = new List<int>();
                             }
                             falls[matrix[x, y, position.z]].Add(position.y);
@@ -130,7 +156,7 @@ public class PlayMatrix : MonoBehaviour {
                 for (int x = 0; x < sizeX; x++) {
                     for (int z = 0; z < sizeZ; z++) {
                         cubesToRemove.Add(matrix[x, position.y, z]);
-                        for (int y = position.y+1; y<sizeY; y++) {
+                        for (int y = position.y + 1; y < sizeY; y++) {
                             if (matrix[x, y, z] != null) {
                                 if (!falls.ContainsKey(matrix[x, y, z])) {
                                     falls[matrix[x, y, z]] = new List<int>();
@@ -141,10 +167,10 @@ public class PlayMatrix : MonoBehaviour {
                     }
                 }
             }
-            
+
         }
         foreach (Vector3Int position in newPositions) {
-           
+
         }
         score /= hardMultiplier;
     }
