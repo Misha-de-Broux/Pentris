@@ -20,6 +20,9 @@ public class RightWristUI : MonoBehaviour
         
     }
     void OnPieceFall(){
-        Piece piece = generator.pool.Peek().gameObject;
+        GameObject piece = generator.pool.Peek().gameObject;
+        Vector3 position = new Vector3(0,-.2f,0);
+        Quaternion rotation = Quaternion.identity;
+        Instantiate(piece, position, rotation);
     }
 }
