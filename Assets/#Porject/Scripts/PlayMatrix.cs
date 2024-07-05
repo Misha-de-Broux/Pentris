@@ -76,6 +76,7 @@ public class PlayMatrix : MonoBehaviour {
             }
             int runningRoutines = 0;
             foreach (Cube cube in cubesToRemove.Distinct()) {
+                falls.Remove(cube);
                 RemoveCube(cube);
                 StartCoroutine(StartWaitCoroutine(cube.KillCoroutine(timeToKill)));
             }
