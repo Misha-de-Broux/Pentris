@@ -15,7 +15,6 @@ public class ForceAlignment : MonoBehaviour
         Collider[] playZoneColliders = playZoneMatrix.GetComponentsInChildren<Collider>();
         playzone = new Bounds(playZoneMatrix.transform.position, Vector3.zero);
         foreach (Collider nextCollider in playZoneColliders) {
-            Debug.Log(nextCollider.bounds.size);
             playzone.Encapsulate(nextCollider.bounds);
         }
 
@@ -58,8 +57,6 @@ public class ForceAlignment : MonoBehaviour
     }
     public void SnapXZ(){
         Vector3 correctedPos = transform.position;
-        
-        
 
         Collider[] myColliders = GetComponentsInChildren<Collider>();
         Bounds myBounds = new Bounds(transform.position, Vector3.zero);
@@ -69,9 +66,6 @@ public class ForceAlignment : MonoBehaviour
         correctedPos.y -= (myBounds.min.y - playzone.max.y);
         correctedPos.y -= correctedPos.y%0.1f;
 
-        
-
-        Debug.Log($"playzone max : {playzone.max}, min : {playzone.min}\nbounds max : {myBounds.max}, min : {myBounds.min}");
         if(myBounds.min.x < playzone.min.x) {
             correctedPos.x -= (myBounds.min.x - playzone.min.x);
         }
